@@ -20,6 +20,7 @@ package reuseport
 import (
 	"context"
 	"net"
+	"time"
 
 	"github.com/pkg/errors"
 )
@@ -59,6 +60,19 @@ func Dial(network, laddr, raddr string) (net.Conn, error) {
 	d := net.Dialer{
 		Control:   Control,
 		LocalAddr: nla,
+	}
+	return d.Dial(network, raddr)
+}
+
+func DialTimeout(network, laddr, raddr string, timeout time.Duration) (net.Conn, error) {
+	nla, err := ResolveAddr(network, laddr)
+	if err != nil {
+		return nil, errors.Wrap(err, "resolving local addr")
+	}
+	d := net.Dialer{
+		Control:   Control,
+		LocalAddr: nla,
+		Timeout:   timeout,
 	}
 	return d.Dial(network, raddr)
 }
