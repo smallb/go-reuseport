@@ -17,7 +17,7 @@ SO_REUSEADDR
 SO_REUSEPORT
 ```
 
-- godoc: https://godoc.org/github.com/libp2p/go-reuseport
+- godoc: https://godoc.org/github.com/smallb/go-reuseport
 
 This is a simple package to help with address reuse. This is particularly
 important when attempting to do TCP NAT holepunching, which requires a process
